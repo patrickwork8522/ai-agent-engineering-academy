@@ -15,7 +15,7 @@ This repository is readable directly in GitHub without downloading a ZIP. GitHub
 | Area | Experience | Status |
 |---|---|---|
 | Discover | Choose what to explore, no rigid order | ✅ Interactive |
-| Learning Paths | Six paths with reusable modules | ✅ 13 interactive checkpoints + 30 textbook lessons |
+| Learning Paths | Six course outlines; lessons and revision nested inside each course | ✅ Sequential Next navigation; shared skills reused |
 | Agent Playground | Inspect step-by-step decision and tool trace | ✅ Three simulated scenarios |
 | Knowledge checks | Immediate feedback, completion gating | ✅ Ten-question graded assessment in `f-agent`; one-question checks elsewhere need rebuilding |
 | Progress | XP and course trophies stored in browser | ✅ Local device only |
@@ -42,11 +42,11 @@ Estimated course durations include future deeper exercises and references; the c
 
 ## Suggested first 30 minutes
 
-1. Read [Agent vs chatbot vs workflow](lessons/f-agent.md) and write down your choice for the retail ETL case.
-2. Open its [interactive demonstration](academy/lessons/f-agent.html), if running the HTML in a browser or through GitHub Pages.
-3. Complete its ten-question assessment and one design exercise; aim for at least 8/10.
-4. Visit **My progress** to see your score and trophy progress.
-5. Open **Case studies** and try the architecture detective checklist with one real project.
+1. Open the live academy and choose **Learning paths → AI Foundations → Open course**.
+2. Start a lesson, read its teaching and examples, then choose **Next: practice & revision**.
+3. Complete the revision exercise and choose **Complete revision & next** to proceed in sequence.
+4. For `f-agent`, study the full [interactive lesson](academy/lessons/f-agent.html) and pass its ten-question assessment before continuing.
+5. Visit **My progress** for shared completion and course trophies. Reading guides remain available in every course.
 
 ## Repo map
 
@@ -56,6 +56,7 @@ academy/
   styles.css       Responsive dark/light design
   data.js          Canonical course/module metadata, quizzes and scenarios
   app.js           Routing, simulation, quizzes and local progress
+  course-flow.css  Sequential course and revision layouts
   books/           Browser-readable course textbooks
   lessons/         Deep interactive lessons, beginning with f-agent.html
 courses/           Six canonical course guides in Markdown
