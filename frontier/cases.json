@@ -12,8 +12,8 @@
       "category": "reliability",
       "audience": "beginner to advanced",
       "estimatedActiveMinutes": [
-      90,
-      150
+        90,
+        150
       ],
       "url": "academy/frontier/index.html",
       "synthetic": true,
@@ -32,18 +32,29 @@
       "id": "agent-security-002",
       "title": "The poisoned document",
       "topic": "AI agents",
-      "status": "planned",
+      "status": "complete",
       "category": "security",
+      "estimatedActiveMinutes": [100, 160],
+      "url": "academy/frontier/case.html?case=002",
+      "synthetic": true,
+      "prerequisites": ["f-model", "f-agent"],
+      "reviewBy": "2027-02-18",
       "sourceRefs": [
-        "https://deepmind.google/blog/advancing-geminis-security-safeguards/"
+        "https://www.microsoft.com/en-us/msrc/blog/2025/07/how-microsoft-defends-against-indirect-prompt-injection-attacks",
+        "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"
       ]
     },
     {
       "id": "agent-long-horizon-003",
       "title": "The 40-step workflow",
       "topic": "AI agents",
-      "status": "planned",
+      "status": "complete",
       "category": "state & planning",
+      "estimatedActiveMinutes": [100, 160],
+      "url": "academy/frontier/case.html?case=003",
+      "synthetic": true,
+      "prerequisites": ["f-agent"],
+      "reviewBy": "2027-02-18",
       "sourceRefs": [
         "https://metr.org/blog/2026-05-19-frontier-risk-report/"
       ]
@@ -52,19 +63,31 @@
       "id": "agent-evaluation-004",
       "title": "Benchmark winner, production failure",
       "topic": "AI agents",
-      "status": "planned",
+      "status": "complete",
       "category": "evaluation",
+      "estimatedActiveMinutes": [100, 170],
+      "url": "academy/frontier/case.html?case=004",
+      "synthetic": true,
+      "prerequisites": ["f-agent"],
+      "reviewBy": "2027-02-18",
       "sourceRefs": [
-        "https://hal.cs.princeton.edu/reliability/"
+        "https://www.swebench.com/verified",
+        "https://metr.org/blog/2026-05-19-frontier-risk-report/"
       ]
     },
     {
       "id": "agent-orchestration-005",
       "title": "Does this need five agents?",
       "topic": "AI agents",
-      "status": "planned",
+      "status": "complete",
       "category": "multi-agent systems",
+      "estimatedActiveMinutes": [100, 170],
+      "url": "academy/frontier/case.html?case=005",
+      "synthetic": true,
+      "prerequisites": ["f-agent"],
+      "reviewBy": "2027-02-18",
       "sourceRefs": [
+        "https://research.google/blog/towards-a-science-of-scaling-agent-systems-when-and-why-agent-systems-work/",
         "https://www.anthropic.com/research/building-effective-agents"
       ]
     },
