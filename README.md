@@ -8,7 +8,7 @@ A self-paced, browser-first academy for understanding the AI agent ecosystem, ev
 
 This repository is readable directly in GitHub without downloading a ZIP. GitHub displays Markdown lessons and exercises natively. Interactive HTML pages need a browser or GitHub Pages hosting; GitHub's source-file view does not run JavaScript. No server, API key, paid model or backend is required for the self-contained simulations.
 
-**Publishing status:** one fully rebuilt lesson (`f-agent`) is complete. The remaining course guides and 12 short checkpoints are **first-edition scaffolds**, not yet lessons of equivalent educational depth. Their study-hour totals are targets for the full curriculum, not hours of currently complete material.
+**Publishing status:** GitHub Pages entry files (`index.html` and `.nojekyll`) are committed. **Pages still needs to be enabled in repository settings** before a public website URL is live. One fully rebuilt lesson (`f-agent`) is complete. The remaining course guides and 12 short checkpoints are **first-edition scaffolds**, not yet lessons of equivalent educational depth. Their study-hour totals are targets for the full curriculum, not hours of currently complete material.
 
 ## What's inside?
 
@@ -79,7 +79,7 @@ Open `academy/index.html` directly in a modern browser. This static build does n
 
 ## GitHub Pages deployment
 
-GitHub Pages can publish from repository root `/` or `/docs` (depending on repository and account settings), not directly from arbitrary subdirectories in branch mode. A simple approach is to copy the contents of `academy/` to repository `/docs/` and choose Settings → Pages → Deploy from branch → `main` → `/docs`. Alternatively use a GitHub Actions workflow to publish `academy/` as the Pages artifact. Pages availability and public visibility depend on the GitHub plan and repository privacy settings—review them before enabling it. Do not put secrets in the site; everything served by Pages should be treated as publicly accessible unless access control is explicitly configured.
+This repository is prepared for branch-based GitHub Pages publishing: root `index.html` redirects to `academy/index.html`, and `.nojekyll` preserves static asset paths. As repository owner, open **Settings → Pages → Build and deployment** and select **Deploy from a branch**, branch **main**, folder **/(root)**, then **Save**. Once the deployment succeeds, visit `https://patrickwork8522.github.io/ai-agent-engineering-academy/`. You can check deployment status in **Actions**. This URL is the expected address, **not a verified active deployment** until GitHub Pages reports success. Do not select `/docs`; that folder contains design documentation, not the site entry point. No credentials should be committed to a public Pages site.
 
 ## Safety and learning principles
 
