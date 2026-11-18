@@ -8,7 +8,7 @@ A self-paced, browser-first academy for understanding the AI agent ecosystem, ev
 
 This repository is readable directly in GitHub without downloading a ZIP. GitHub displays Markdown lessons and exercises natively. Interactive HTML pages need a browser or GitHub Pages hosting; GitHub's source-file view does not run JavaScript. No server, API key, paid model or backend is required for the self-contained simulations.
 
-**Publishing status:** GitHub Pages is available at [Agent Atlas](https://patrickwork8522.github.io/ai-agent-engineering-academy/). Two full interactive chapters are now included: `f-model` (90–120 minutes) and `f-agent` (90–115 minutes). The remaining course guides and 11 shorter checkpoints are **first-edition scaffolds**, not yet lessons of equivalent educational depth. Their study-hour totals are targets for the full curriculum, not hours of currently complete material.
+**Publishing status:** GitHub Pages is available at [Agent Atlas](https://patrickwork8522.github.io/ai-agent-engineering-academy/). Two full interactive chapters are now included: `f-model` (70–100 minutes) and `f-agent` (90–115 minutes). The remaining course guides and 11 shorter checkpoints are **first-edition scaffolds**, not yet lessons of equivalent educational depth. Their study-hour totals are targets for the full curriculum, not hours of currently complete material.
 
 ## What's inside?
 
