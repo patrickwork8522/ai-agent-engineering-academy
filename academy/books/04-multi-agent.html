@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Atlas Course — Agent Atlas</title><link rel="stylesheet" href="../styles.css"><style>
+body{background:var(--bg)}.book-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1060px;margin:auto;padding:22px 25px;border-bottom:1px solid var(--line)}.book-nav a{color:var(--accent);font-weight:700}.book-shell{max-width:1060px;margin:30px auto 80px;padding:0 25px;display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:36px}.book-content{font-size:1.035rem;line-height:1.78}.book-content h1{font-size:clamp(2.2rem,4vw,3.3rem);line-height:1.12}.book-content h2{font-size:1.75rem;margin-top:55px;padding-top:20px;border-top:1px solid var(--line)}.book-content h3{font-size:1.2rem;margin-top:30px;color:var(--accent2)}.book-content p,.book-content li{color:var(--text)}.book-content blockquote{margin:20px 0;padding:18px 24px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0}.book-content blockquote p{margin:0}.book-content pre{background:#090c16;border:1px solid var(--line);border-radius:12px;padding:18px;overflow:auto;color:#e6defd;font-size:.87rem;line-height:1.5}.book-content :not(pre)>code{background:var(--surface2);border-radius:5px;padding:2px 5px;font-size:.9em}.book-content table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:25px 0}.book-content th,.book-content td{border:1px solid var(--line);padding:10px 13px;text-align:left;min-width:110px}.book-content th{background:var(--surface2)}.book-content a{color:var(--accent);text-decoration:underline}.book-aside{align-self:start;position:sticky;top:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}.book-aside a{display:block;font-size:.85rem;color:var(--accent);margin:10px 0}.book-aside p{font-size:.82rem}@media(max-width:800px){.book-shell{display:block}.book-aside{position:static;margin-top:30px}.book-content h2{margin-top:40px}}
+</style></head><body><div class="book-nav"><a href="../index.html#paths">← Agent Atlas courses</a><span class="pill">FULL COURSE GUIDE</span><a href="../index.html#playground">Try a demo ↗</a></div><div class="book-shell"><article class="book-content"><h1
+id="course-04-multi-agent-systems-and-orchestration">Course 04 —
+Multi-Agent Systems and Orchestration</h1>
+<p><strong>Level:</strong> Advanced applied design. <strong>Study
+time:</strong> 35–55 hours.<br />
+<strong>Prerequisites:</strong> <a href="03-engineering.html">Agent
+Engineering</a> concepts of tool loops, state, evaluation and
+permissions.<br />
+<strong>Outcome:</strong> Build and evaluate a system with multiple
+specialized workers without assuming more agents automatically means
+better results.</p>
+<h2 id="lesson-m1-why-multiple-agents">Lesson M1 — Why multiple
+agents?</h2>
+<p>A multi-agent system distributes a task among components that can
+reason, use tools or produce specialized results. But splitting work
+creates coordination overhead, communication complexity and additional
+model calls. A single agent with well-designed tools is often simpler,
+cheaper and more reliable. Begin by asking what separation improves:
+independent evidence gathering, parallel specialized work, role-specific
+permissions, or independent review.</p>
+<p>Common patterns:</p>
+<ol type="1">
+<li><strong>Router:</strong> Send a request to one specialist based on
+its category.</li>
+<li><strong>Supervisor:</strong> A coordinator assigns sub-tasks and
+combines results.</li>
+<li><strong>Parallel workers:</strong> Independent specialists
+investigate complementary angles.</li>
+<li><strong>Reviewer loop:</strong> One worker drafts, another
+critiques, and the host accepts, revises or escalates.</li>
+<li><strong>Workflow with agentic steps:</strong> Deterministic state
+machine controlling a few flexible decisions.</li>
+</ol>
+<h3 id="worked-example">Worked example</h3>
+<p>An app-market research system might have a researcher for competitor
+evidence, an analyst for cost scenarios and a reviewer for unsupported
+claims. A supervisor assembles the report. The reviewer should not
+simply agree with the analyst; it needs access to explicit sources and a
+rubric. If a single well-instructed model can do the whole task as
+accurately at lower cost, keep the simpler design.</p>
+<h3 id="exercise-m1">Exercise M1</h3>
+<p>Take a one-hour research task and propose (A) a single-agent approach
+and (B) a three-worker approach. Estimate number of model calls,
+handoffs, elapsed time, cost and points of failure. State what measured
+result would justify B.</p>
+<h2 id="lesson-m2-contracts-messages-and-state">Lesson M2 — Contracts,
+messages and state</h2>
+<p>Agents need a reliable <strong>task contract</strong>, not a vague
+instruction to “collaborate.” Define <code>task_id</code>, role, goal,
+allowed inputs, allowed tools, deadline, output schema, evidence
+references and status. Pass a concise task package rather than the
+entire conversation to every worker. The orchestrator maintains state
+and does not let workers arbitrarily grant themselves new tools.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;task_id&quot;</span><span class="fu">:</span> <span class="st">&quot;research-001&quot;</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;competitor_research&quot;</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;goal&quot;</span><span class="fu">:</span> <span class="st">&quot;Find documented alternatives to voice shift handover&quot;</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;allowed_tools&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;search_sources&quot;</span><span class="ot">,</span> <span class="st">&quot;read_source&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;deadline_seconds&quot;</span><span class="fu">:</span> <span class="dv">120</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;output_schema&quot;</span><span class="fu">:</span> <span class="st">&quot;competitor_evidence_v1&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="state-and-ownership">State and ownership</h3>
+<p>Each task should move through states such as
+<code>PENDING → RUNNING → DONE</code>, with explicit
+<code>FAILED</code>, <code>TIMED_OUT</code> and
+<code>AWAITING_REVIEW</code>. Store transitions in a checkpoint or task
+database. Protect against double execution by using task IDs and
+idempotent handoffs. If a worker fails after partially writing a report,
+the coordinator should know what completed and what remains
+uncertain.</p>
+<h3 id="exercise-m2">Exercise M2</h3>
+<p>Design a schema for a worker result with <code>claims</code>,
+<code>sources</code>, <code>confidence</code>, <code>limitations</code>,
+<code>cost</code>, and <code>status</code>. Write five validation rules.
+Simulate a worker returning no sources, an invalid status and a
+timed-out task; define the coordinator’s response.</p>
+<h2 id="lesson-m3-parallelism-and-dependency-planning">Lesson M3 —
+Parallelism and dependency planning</h2>
+<p>Some jobs can run concurrently; others depend on earlier results. A
+researcher can find existing products while a separate analyst studies
+typical customer workflows, but a financial estimate requiring verified
+competitor prices should wait for evidence. Parallelism saves elapsed
+time only when tasks are sufficiently independent and tool/model rate
+limits permit it.</p>
+<p>Use a dependency graph. Make task owners and completion criteria
+explicit. Cap active workers and total model budget. Avoid recursive
+delegation without depth limits. Review rate limits, privacy boundaries
+and the risk of multiple workers changing the same external record.</p>
+<h3 id="worked-timing-exercise">Worked timing exercise</h3>
+<p>Suppose three independent tasks take 4, 5 and 7 minutes. Sequential
+time is 16 minutes. Perfect parallel time would be 7 minutes, but real
+coordination, queueing and review might add 3 minutes. If all three
+agents use the same bottlenecked external service, concurrency may bring
+little benefit and more rate-limit failures.</p>
+<h3 id="exercise-m3">Exercise M3</h3>
+<p>Draw a dependency graph for a product opportunity report: market
+sources, competitor prices, interviews, cost scenarios, reviewer, final
+memo. Identify tasks safe to parallelize and tasks that must wait.
+Include a maximum worker count and timeout behavior.</p>
+<h2 id="lesson-m4-review-disagreement-and-failure-recovery">Lesson M4 —
+Review, disagreement and failure recovery</h2>
+<p>Independent review is valuable only if it uses a clear rubric and
+evidence. A reviewer should check whether claims have directly
+supporting sources, calculations are internally consistent, dates are
+appropriate and unknowns remain labeled. An LLM reviewing another LLM
+can repeat the same mistakes; deterministic checks and human judgment
+still matter.</p>
+<p><strong>Disagreement protocol:</strong> collect conflicting claims →
+compare source quality and dates → run a bounded verification step →
+report uncertainty if unresolved. Do not allow endless “critic vs
+writer” debates. Define revision limits. Preserve earlier evidence so a
+retry doesn’t silently discard it.</p>
+<p><strong>Operational recovery:</strong> detect timeout; retry only
+when safe; avoid duplicate writes; checkpoint intermediate output; route
+persistent failure to human review; log the entire task chain. If a
+worker requests a privileged tool outside its contract, reject it and
+report the attempt.</p>
+<h3 id="exercise-m4">Exercise M4</h3>
+<p>The researcher reports a competitor price of £20/month, the analyst
+uses £10, and the reviewer finds that pricing varies by billing period.
+Write a three-step resolution protocol. Then construct an adversarial
+source document containing an instruction to reveal unrelated files.
+Explain why no worker should have that capability.</p>
+<h2 id="lesson-m5-evaluation-is-teamwork-worth-it">Lesson M5 —
+Evaluation: is teamwork worth it?</h2>
+<p>Build a benchmark with at least 20 tasks representing simple, medium
+and hard cases. Compare one agent against the multi-agent workflow using
+the <strong>same input set</strong>. Record correctness, evidence
+coverage, latency, total token/tool cost, failure rate, review effort
+and unauthorized side effects. Report medians and variation; avoid
+selecting only showcase tasks.</p>
+<h3 id="example-result-interpretation">Example result
+interpretation</h3>
+<p>If multi-agent quality increases from 70% to 78% but cost triples and
+latency doubles, whether it is worthwhile depends on the use case and
+how valuable the improvement is. If simple tasks show no benefit, route
+them to the single-agent path and reserve specialists for complex
+investigations.</p>
+<h3 id="exercise-m5">Exercise M5</h3>
+<p>Design an evaluation sheet with case ID, task complexity, expected
+outcomes, evidence criteria, single-agent result, multi-agent result,
+costs and time. Define a precommitted decision rule such as “use
+multi-agent only when complex-task success improves by at least X
+percentage points within Y cost ceiling.” Set X and Y based on your
+actual objectives.</p>
+<h2 id="multi-agent-capstone-a-research-and-review-team">Multi-agent
+capstone — A research and review team</h2>
+<p>Build a coordinator with three roles:</p>
+<ul>
+<li><strong>Evidence researcher:</strong> gathers and cites permitted
+sources.</li>
+<li><strong>Business analyst:</strong> generates transparent assumptions
+and scenario calculations.</li>
+<li><strong>Independent reviewer:</strong> checks claims and challenges
+unsupported inferences.</li>
+</ul>
+<p>Use a mock model first, with canned tool outputs, to test
+orchestration deterministically. Then optionally connect real model APIs
+within a spending limit. The coordinator must produce a final memo
+containing evidence, assumptions, unresolved questions and the full task
+trace.</p>
+<p><strong>Deliverables:</strong> Task schema, state diagram, minimal
+implementation, failure-injection results, 20-case benchmark,
+cost/quality comparison with a single-agent baseline and a five-minute
+technical demo.</p>
+<p><strong>Pass criteria:</strong> Specialists cannot self-escalate
+permissions; all tasks terminate; source-free claims are flagged;
+conflicts are resolved or disclosed; at least one justified use of
+multi-agent architecture is demonstrated.</p>
+<h2 id="further-study">Further study</h2>
+<ul>
+<li><a href="https://docs.langchain.com/oss/python/learn">LangGraph
+Python documentation</a> for orchestrated state machines and
+persistence.</li>
+<li><a href="https://github.com/microsoft/autogen">Microsoft AutoGen
+repository</a> and <a href="https://github.com/crewAIInc/crewAI">CrewAI
+repository</a> to compare framework conventions.</li>
+<li><a href="https://modelcontextprotocol.io/introduction">Model Context
+Protocol</a> for standardized tool access. MCP connectivity does not
+replace authorization or validation.</li>
+</ul>
+<p><strong>Video suggestion:</strong> An animated side-by-side
+comparison of single-agent and supervisor-worker workflows with the same
+task, including timing and cost counters. Render and benchmark the
+actual examples before calling it a performance
+comparison.</p></article><aside class="book-aside"><div class="eyebrow">STUDY GUIDE</div><h3>Learn your way</h3><p>Read, pause, attempt the exercise, then compare your reasoning to the lesson. Use the playground for visual traces.</p><a href="../index.html#playground">Open agent simulator →</a><a href="../index.html#progress">View progress →</a><p>Course guides are substantive references. Interactive module quizzes track browser-local completion separately.</p></aside></div></body></html>

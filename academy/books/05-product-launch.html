@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Atlas Course — Agent Atlas</title><link rel="stylesheet" href="../styles.css"><style>
+body{background:var(--bg)}.book-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1060px;margin:auto;padding:22px 25px;border-bottom:1px solid var(--line)}.book-nav a{color:var(--accent);font-weight:700}.book-shell{max-width:1060px;margin:30px auto 80px;padding:0 25px;display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:36px}.book-content{font-size:1.035rem;line-height:1.78}.book-content h1{font-size:clamp(2.2rem,4vw,3.3rem);line-height:1.12}.book-content h2{font-size:1.75rem;margin-top:55px;padding-top:20px;border-top:1px solid var(--line)}.book-content h3{font-size:1.2rem;margin-top:30px;color:var(--accent2)}.book-content p,.book-content li{color:var(--text)}.book-content blockquote{margin:20px 0;padding:18px 24px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0}.book-content blockquote p{margin:0}.book-content pre{background:#090c16;border:1px solid var(--line);border-radius:12px;padding:18px;overflow:auto;color:#e6defd;font-size:.87rem;line-height:1.5}.book-content :not(pre)>code{background:var(--surface2);border-radius:5px;padding:2px 5px;font-size:.9em}.book-content table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:25px 0}.book-content th,.book-content td{border:1px solid var(--line);padding:10px 13px;text-align:left;min-width:110px}.book-content th{background:var(--surface2)}.book-content a{color:var(--accent);text-decoration:underline}.book-aside{align-self:start;position:sticky;top:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}.book-aside a{display:block;font-size:.85rem;color:var(--accent);margin:10px 0}.book-aside p{font-size:.82rem}@media(max-width:800px){.book-shell{display:block}.book-aside{position:static;margin-top:30px}.book-content h2{margin-top:40px}}
+</style></head><body><div class="book-nav"><a href="../index.html#paths">← Agent Atlas courses</a><span class="pill">FULL COURSE GUIDE</span><a href="../index.html#playground">Try a demo ↗</a></div><div class="book-shell"><article class="book-content"><h1
+id="course-05-launch-a-useful-ai-product">Course 05 — Launch a Useful AI
+Product</h1>
+<p><strong>Level:</strong> Practical entrepreneurship. <strong>Study
+time:</strong> 30–50 hours.<br />
+<strong>Prerequisites:</strong> <a href="01-market-business.html">AI
+Market &amp; Business</a>, basic agent safety, and either <a
+href="02-no-code.html">No-Code</a> or <a
+href="03-engineering.html">Engineering</a> for implementation.<br />
+<strong>Outcome:</strong> Validate, prototype, pilot and make an
+evidence-based launch decision without overbuilding.</p>
+<h2 id="lesson-p1-define-the-smallest-valuable-promise">Lesson P1 —
+Define the smallest valuable promise</h2>
+<p>A minimum viable product is not the smallest number of features. It
+is the smallest <strong>complete promise</strong> you can make to a
+narrow customer and reliably keep. “AI assistant for everyone” is not a
+usable promise. “Turn a technician’s one-minute voice note into a
+reviewable shift-handover record” is testable.</p>
+<p>Write a product specification containing: target user, the one core
+workflow, input method, output, error states, permission boundaries and
+success criteria. Mark what will not be built: analytics dashboards,
+team permissions, integrations or autonomous scheduling unless essential
+to the first customer. This prevents months of effort on features with
+no validated need.</p>
+<h3 id="exercise-p1">Exercise P1</h3>
+<p>Choose voice job logs, meeting-to-action capture or CSV exception
+reporting. Write a one-page MVP specification and a “not in version 1”
+list of ten tempting features. Identify the minimum trust and privacy
+expectations even in the prototype.</p>
+<h2 id="lesson-p2-prototype-and-test-the-complete-journey">Lesson P2 —
+Prototype and test the complete journey</h2>
+<p>The core journey includes discovery, onboarding, first input, output
+review, correction and return use. A model demonstration alone is not a
+user experience. Build a clickable prototype, no-code flow or small web
+application that covers one full journey. Track time-to-first-value and
+how much effort the user spends correcting the output.</p>
+<h3 id="worked-example-csv-exception-reporting">Worked example: CSV
+exception reporting</h3>
+<p>User uploads a sample CSV → validator checks a known schema → errors
+are grouped → AI drafts a plain-language explanation → human reviews and
+exports a report. On malformed input, show a helpful error and sample
+fix. On a large file, impose size and processing limits. On unsupported
+format, do not fabricate success.</p>
+<h3 id="exercise-p2">Exercise P2</h3>
+<p>Invite three users from the intended segment to attempt the workflow
+without coaching. Record where they hesitate, whether they understand
+what is automated, whether the result is trustworthy, and what they
+would do next. Fix the most consequential friction, not just cosmetic
+details.</p>
+<h2 id="lesson-p3-architecture-security-and-operating-cost">Lesson P3 —
+Architecture, security and operating cost</h2>
+<p>A minimal stack might be: static web UI; managed authentication; a
+small API/workflow runner; managed database/object storage; a model API
+for genuinely ambiguous tasks; observability and billing as needed. Do
+not adopt complex microservices, a vector database or multi-agent
+orchestration simply because they are fashionable.</p>
+<h3 id="cost-categories">Cost categories</h3>
+<ol type="1">
+<li>Fixed: domain, hosting base fee, monitoring and any SaaS
+subscription.</li>
+<li>Variable: inference tokens, transcription minutes, OCR, search,
+storage, bandwidth and workflow executions.</li>
+<li>Human: support tickets, manual corrections, onboarding, billing
+disputes and incident response.</li>
+<li>Growth: content, outreach, paid acquisition, partnerships and
+sales.</li>
+</ol>
+<p>Use a spreadsheet to estimate cost per active customer in low,
+expected-case and heavy-use scenarios. Set spending limits and abuse
+controls. Model requests do not necessarily cost much individually, but
+uncontrolled agent loops or long audio files can materially change
+cost.</p>
+<h3 id="exercise-p3">Exercise P3</h3>
+<p>Create two architectures: a managed no-code pilot and a hybrid
+service with custom backend. Estimate setup time, monthly fixed costs,
+cost per 100 tasks and weekly maintenance. Select one using your actual
+availability, not only technical elegance.</p>
+<h2 id="lesson-p4-find-and-convert-your-first-customers">Lesson P4 —
+Find and convert your first customers</h2>
+<p>Customer acquisition is a process, not an announcement. Find a
+segment with a recurring painful task and a reachable community. Create
+a short demonstration showing before/after outcomes. Offer a narrowly
+scoped pilot, listen to objections and request permission to follow up.
+Measure qualified outreach, replies, demos, trials, active usage and
+paid conversion.</p>
+<h3 id="example-outreach-experiment">Example outreach experiment</h3>
+<p>Contact 20 relevant businesses or professionals with a personalized,
+respectful message describing a task and asking for feedback, not
+claiming guaranteed savings. Track who responded and what they actually
+need. If conversations show the problem is not important, change the
+hypothesis. Do not automate spam or scrape private contacts without
+permission.</p>
+<h3 id="exercise-p4">Exercise P4</h3>
+<p>Write a landing-page headline, an honest 30-second demo script, five
+interview questions, an onboarding checklist and two pricing
+experiments. Define what would count as enough evidence to continue to
+the next month.</p>
+<h2 id="lesson-p5-operations-retention-and-responsible-scaling">Lesson
+P5 — Operations, retention and responsible scaling</h2>
+<p>Launch brings ongoing responsibilities: service failures, security
+patches, model changes, vendor costs, backups, privacy requests,
+customer support and cancellation. Start with a simple operations
+manual: how to diagnose a failed job, how to notify a user, how to
+restore data, how to rotate credentials, and what support response you
+can realistically promise.</p>
+<p>Retention matters more than an initial spike of curiosity. Track
+recurring active users, time saved, correction rate and number of
+workflows completed—not only page views or total signups. As the product
+grows, evaluate whether adding agent autonomy actually reduces work
+without increasing mistakes or support costs.</p>
+<h3 id="exercise-p5">Exercise P5</h3>
+<p>Simulate a bad release where a model starts misclassifying expenses.
+Design detection, rollback, user messaging, recovery of affected records
+and a post-incident evaluation. Estimate the time required for a solo
+founder to handle this while still working a day job.</p>
+<h2 id="product-launch-capstone-a-30-day-decision-driven-pilot">Product
+launch capstone — A 30-day decision-driven pilot</h2>
+<p><strong>Week 1:</strong> Verify problem and interview target
+users.<br />
+<strong>Week 2:</strong> Build one complete workflow with an explicit
+review step.<br />
+<strong>Week 3:</strong> Run monitored user tests and measure
+value/errors.<br />
+<strong>Week 4:</strong> Review economics, usability, support demand and
+willingness to continue/pay. Make a documented go/change/stop
+decision.</p>
+<h3 id="final-deliverables">Final deliverables</h3>
+<ul>
+<li>A problem statement and customer segment.</li>
+<li>Evidence from competitor research and actual or planned
+interviews.</li>
+<li>A working demo with five test cases and visible limitations.</li>
+<li>An operating-cost spreadsheet with sensitivity analysis.</li>
+<li>A concise security/privacy and support plan.</li>
+<li>A realistic first-customer acquisition experiment.</li>
+<li>A launch decision with explicit uncertainty and next steps.</li>
+</ul>
+<p><strong>Pass criteria:</strong> The project is narrow, useful and
+honestly validated; users can correct results; costs are not hidden;
+high-impact actions need approval; and you can explain how to operate
+the service sustainably.</p>
+<h2 id="further-study-and-practical-case-links">Further study and
+practical case links</h2>
+<p>Explore <a href="https://github.com/n8n-io/n8n">n8n</a> and <a
+href="https://github.com/langgenius/dify">Dify</a> for possible workflow
+foundations. Use the academy’s market/business course to revisit
+acquisition and pricing assumptions. For current regulatory, privacy or
+tax obligations affecting a real launch, obtain up-to-date guidance for
+the relevant jurisdiction.</p>
+<p><strong>Video suggestion:</strong> A build-in-public diary showing
+customer problem → prototype → recorded task test → metrics → launch
+decision. Use consented or synthetic data and do not fabricate
+testimonials or
+results.</p></article><aside class="book-aside"><div class="eyebrow">STUDY GUIDE</div><h3>Learn your way</h3><p>Read, pause, attempt the exercise, then compare your reasoning to the lesson. Use the playground for visual traces.</p><a href="../index.html#playground">Open agent simulator →</a><a href="../index.html#progress">View progress →</a><p>Course guides are substantive references. Interactive module quizzes track browser-local completion separately.</p></aside></div></body></html>

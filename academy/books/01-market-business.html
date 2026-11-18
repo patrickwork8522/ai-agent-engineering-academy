@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Atlas Course — Agent Atlas</title><link rel="stylesheet" href="../styles.css"><style>
+body{background:var(--bg)}.book-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1060px;margin:auto;padding:22px 25px;border-bottom:1px solid var(--line)}.book-nav a{color:var(--accent);font-weight:700}.book-shell{max-width:1060px;margin:30px auto 80px;padding:0 25px;display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:36px}.book-content{font-size:1.035rem;line-height:1.78}.book-content h1{font-size:clamp(2.2rem,4vw,3.3rem);line-height:1.12}.book-content h2{font-size:1.75rem;margin-top:55px;padding-top:20px;border-top:1px solid var(--line)}.book-content h3{font-size:1.2rem;margin-top:30px;color:var(--accent2)}.book-content p,.book-content li{color:var(--text)}.book-content blockquote{margin:20px 0;padding:18px 24px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0}.book-content blockquote p{margin:0}.book-content pre{background:#090c16;border:1px solid var(--line);border-radius:12px;padding:18px;overflow:auto;color:#e6defd;font-size:.87rem;line-height:1.5}.book-content :not(pre)>code{background:var(--surface2);border-radius:5px;padding:2px 5px;font-size:.9em}.book-content table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:25px 0}.book-content th,.book-content td{border:1px solid var(--line);padding:10px 13px;text-align:left;min-width:110px}.book-content th{background:var(--surface2)}.book-content a{color:var(--accent);text-decoration:underline}.book-aside{align-self:start;position:sticky;top:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}.book-aside a{display:block;font-size:.85rem;color:var(--accent);margin:10px 0}.book-aside p{font-size:.82rem}@media(max-width:800px){.book-shell{display:block}.book-aside{position:static;margin-top:30px}.book-content h2{margin-top:40px}}
+</style></head><body><div class="book-nav"><a href="../index.html#paths">← Agent Atlas courses</a><span class="pill">FULL COURSE GUIDE</span><a href="../index.html#playground">Try a demo ↗</a></div><div class="book-shell"><article class="book-content"><h1
+id="course-01-ai-agent-market-opportunity-and-business">Course 01 — AI
+Agent Market, Opportunity and Business</h1>
+<p><strong>Level:</strong> Beginner business strategy. <strong>Study
+time:</strong> 20–30 hours.<br />
+<strong>Prerequisite:</strong> <a
+href="00-foundations.html">Foundations</a>, especially agent vs workflow
+and safety.<br />
+<strong>Outcome:</strong> Research a concrete market, identify a paying
+customer, validate demand and build an evidence-led business case for an
+agent product.</p>
+<blockquote>
+<p>This course teaches market research methods and unit economics. It
+does <strong>not</strong> claim a current market size, popularity
+ranking, or expected commercial return without fresh evidence. Verify
+pricing and competition when executing a project.</p>
+</blockquote>
+<h2 id="lesson-b1-find-a-job-worth-solving">Lesson B1 — Find a job worth
+solving</h2>
+<h3 id="the-problem-first-mindset">The problem-first mindset</h3>
+<p>People do not normally pay for “an AI agent.” They pay to save time,
+reduce errors, meet compliance requirements, win revenue or remove an
+unpleasant task. Start with a <strong>job to be done</strong>, not an
+LLM capability. A useful job statement names a person, a context, an
+action and a measurable outcome.</p>
+<p>Weak: “An AI app for field workers.” Stronger: “A shift supervisor
+needs to hand over unresolved maintenance issues in less than five
+minutes, with equipment IDs and accountability preserved.” The second
+identifies a situation you can observe and test. It also exposes
+difficult requirements: noisy speech, offline use, privacy, shared
+devices, audit trails and handover disputes.</p>
+<h3 id="map-an-existing-workflow">Map an existing workflow</h3>
+<p>Interview someone about the <strong>last real time</strong> they did
+the task. What triggered it? Which tools and files did they touch? Where
+was information retyped? How often did they correct errors? Who consumes
+the output? What happens if it is wrong? Do not ask only “Would you use
+an AI app?”—people often say yes to attractive hypotheticals.</p>
+<p>Create a workflow map with columns: trigger, input, current tools,
+manual work, output, owner, frequency, pain, current cost. Mark whether
+a step truly needs inference. OCR, transcription and categorization may
+benefit from models; totals, due dates and invoice math should usually
+be deterministic.</p>
+<h3 id="worked-example-voice-job-log">Worked example: voice job log</h3>
+<p>A technician finishes a repair and records a 45-second voice note.
+The proposed app transcribes, extracts site/equipment/work done/parts
+used, asks for missing details and generates a structured log. Existing
+substitutes include paper forms, WhatsApp voice messages, field-service
+software and generic transcription apps. The product’s differentiation
+would need to come from the <strong>entire workflow</strong>—structured
+fields, handover quality, integration, reliability and ease of
+adoption—not simply speech-to-text.</p>
+<h3 id="exercise-b1">Exercise B1</h3>
+<p>Pick three ideas: voice shift-handover, travel expense organizer, and
+CSV exception reporting for small businesses. For each, write the
+specific buyer, daily user, trigger, alternatives, frequency and
+measurable benefit. Score pain from 1–5 and explain each score with
+evidence or explicitly label it an assumption.</p>
+<h2 id="lesson-b2-competitors-substitutes-and-market-research">Lesson B2
+— Competitors, substitutes and market research</h2>
+<h3 id="three-layers-of-competition">Three layers of competition</h3>
+<p><strong>Direct competitors</strong> promise essentially the same
+outcome. <strong>Adjacent tools</strong> solve some of the workflow (for
+example transcription without shift handover). <strong>Non-software
+substitutes</strong> are spreadsheets, group chats, paper and a human
+assistant. A product can fail despite having no identical AI competitor
+because users are satisfied with their current workaround.</p>
+<p>Separate <strong>total market</strong> (everyone with the general
+problem), <strong>serviceable market</strong> (those you can reasonably
+reach and support) and <strong>initial beachhead</strong> (one narrow
+segment with a strong reason to try now). Broad global AI market size is
+rarely the most useful number for a solo founder. A list of 50 reachable
+potential buyers in one vertical can be more actionable than a
+speculative billion-pound total.</p>
+<h3 id="competitor-research-worksheet">Competitor research
+worksheet</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>What to record</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Buyer/user</td>
+<td>Who pays, who works in the app, who approves it</td>
+</tr>
+<tr class="even">
+<td>Workflow</td>
+<td>Input → transformation → output</td>
+</tr>
+<tr class="odd">
+<td>Current product</td>
+<td>Features and constraints supported by verified documentation</td>
+</tr>
+<tr class="even">
+<td>Pricing</td>
+<td>Plan, limits, usage charges, source and verification date</td>
+</tr>
+<tr class="odd">
+<td>Trust</td>
+<td>Privacy, access controls, exportability, human review</td>
+</tr>
+<tr class="even">
+<td>Adoption</td>
+<td>Setup time, mobile support, offline capability, training burden</td>
+</tr>
+<tr class="odd">
+<td>Weak spots</td>
+<td>Evidence from reviews/interviews; not unsupported guesses</td>
+</tr>
+</tbody>
+</table>
+<p>Do not confuse GitHub stars, social mentions or app downloads with
+paying customers. Do not interpret a competitor’s published price as
+their real margin. Keep evidence, inference and unknowns in different
+columns.</p>
+<h3 id="exercise-b2">Exercise B2</h3>
+<p>Research three current solutions for one idea from official websites,
+pricing pages and user reviews. Capture exact source URLs and dates. Add
+paper/spreadsheet/manual workaround as a fourth competitor. Explain one
+specific feature or niche that might make switching worthwhile. If no
+plausible difference emerges, write that conclusion openly.</p>
+<h2 id="lesson-b3-pricing-and-unit-economics">Lesson B3 — Pricing and
+unit economics</h2>
+<h3 id="revenue-is-not-profit">Revenue is not profit</h3>
+<p>An agent product may generate revenue but still lose money through
+model usage, transcription, hosting, file storage, payment fees,
+customer support, integrations, error correction and marketing. For a
+small subscription SaaS, model costs can be low or high depending on
+usage patterns; you must estimate per-customer consumption rather than
+assuming a fixed universal cost.</p>
+<p>Define:</p>
+<p>[ = - ]</p>
+<p>[ = - ]</p>
+<p>Illustrative scenario—not a price quote or prediction: a customer
+pays £12/month; model/transcription use costs £2, infrastructure £1,
+payment processing £0.60 and variable support £1.40. Contribution before
+acquisition and fixed costs is £7. A £50 acquisition cost would take
+roughly 7.1 months to recover if the £7 contribution remains stable and
+the customer stays. Churn, refunds and tax can change the outcome
+materially.</p>
+<h3 id="cost-sensitivities">Cost sensitivities</h3>
+<p>Test light, typical and heavy users. Speech agents may have
+per-minute transcription and storage costs; research agents may incur
+search/tool call fees; document agents may need embeddings and storage.
+Guard against expensive loops, retries, large contexts and abusive
+requests. Plan a monthly spending ceiling and measure actual cost per
+completed useful task.</p>
+<h3 id="exercise-b3">Exercise B3</h3>
+<p>Build a spreadsheet with 10, 100 and 1,000 customers and three usage
+levels. Change subscription price, average tasks, tokens/task, hosting,
+support and churn assumptions. Calculate revenue, variable cost,
+contribution and breakeven customers. Identify which assumption most
+affects the result. Do <strong>not</strong> call your scenario an
+expected return unless validated with data.</p>
+<h2 id="lesson-b4-validate-with-people-not-compliments">Lesson B4 —
+Validate with people, not compliments</h2>
+<h3 id="the-evidence-ladder">The evidence ladder</h3>
+<p>An interesting idea ranks low. Interview evidence is better. A person
+spending time to test a real prototype is better still. Repeated usage,
+paid pilots and renewals are stronger signals, although small samples
+remain uncertain. Ask about behavior: “Tell me about the last time you
+lost a handover note,” not “Would you pay £15 for AI handovers?”</p>
+<h3 id="a-two-week-validation-sprint">A two-week validation sprint</h3>
+<p><strong>Days 1–3:</strong> Write a one-sentence problem and customer
+segment. List 20 potential interview contacts and existing alternatives.
+<strong>Days 4–7:</strong> Conduct 5–8 focused interviews and log exact
+pains. <strong>Days 8–10:</strong> Build a clickable or concierge
+prototype with synthetic or consented data. <strong>Days 11–14:</strong>
+Observe 3–5 target users perform a real task, record errors and time,
+and ask for a concrete follow-up action.</p>
+<p>Predefine success and failure criteria. Example: at least three
+participants independently complete the core workflow, at least two
+request another trial, and correction time is below their existing
+manual method. These are hypothetical pilot gates; choose thresholds
+appropriate to your product.</p>
+<h3 id="concierge-versus-automated-mvp">Concierge versus automated
+MVP</h3>
+<p>For an early test, you can manually process some backend steps to
+determine whether the <strong>output</strong> is valuable before
+investing in automation. Be transparent about what is manual, and
+preserve privacy. A concierge test is not proof the workflow can be
+automated profitably, but it may reveal what the customer actually
+needs.</p>
+<h3 id="exercise-b4">Exercise B4</h3>
+<p>Write six interview questions, a 30-second product pitch and a trial
+consent statement. Draft a scorecard recording task completion, time,
+errors, correction effort, value and next-step commitment. Include an
+explicit rule for stopping or changing direction if the test is
+disappointing.</p>
+<h2
+id="lesson-b5-distribution-maintenance-and-solo-founder-feasibility">Lesson
+B5 — Distribution, maintenance and solo-founder feasibility</h2>
+<h3 id="the-unglamorous-work-matters">The unglamorous work matters</h3>
+<p>An AI product needs onboarding, billing, support, updates, logs,
+backups, privacy handling and incident response. A solo founder can
+operate a narrow product more realistically than a platform for every
+industry. Integrations with customers’ calendars, accounting software or
+corporate systems can multiply maintenance and security
+requirements.</p>
+<p>Choose an acquisition channel matched to the buyer: direct outreach
+to a narrow professional segment, a small community, an integration
+marketplace, educational content with real demos, or partnerships. Broad
+advertising before a clear buyer and conversion funnel can waste a small
+budget. Track outreach → response → demo → trial → activation → payment
+→ retention; optimize the bottleneck instead of vanity traffic.</p>
+<h3 id="build-versus-buy">Build versus buy</h3>
+<p>No-code tools can accelerate early validation, but inspect workflow
+limits, hosting control, usage-based pricing, data export and vendor
+lock-in. Custom code adds flexibility but requires developer
+maintenance. A hybrid often makes sense: standard
+authentication/billing/automation services, custom logic only where
+differentiation matters, and carefully chosen model APIs.</p>
+<h3 id="worked-product-shortlist">Worked product shortlist</h3>
+<ul>
+<li><strong>Voice shift-handover:</strong> compelling recurring
+workflow, but mobile UX, noisy audio, privacy and organizational sales
+may be demanding.</li>
+<li><strong>Travel expenses:</strong> understandable personal value and
+many competitors; differentiation and acquisition may be difficult.</li>
+<li><strong>CSV exception reporting for SMEs:</strong> clear
+data-engineering fit and measurable output, but small businesses vary
+greatly in formats and integration requirements.</li>
+</ul>
+<p>These are <strong>hypotheses to test</strong>, not rankings based on
+current market evidence.</p>
+<h3 id="exercise-b5">Exercise B5</h3>
+<p>Create a weekly maintenance budget: customer service, bugs, vendor
+updates, monitoring, security, marketing, invoicing. Estimate optimistic
+and pessimistic hours per customer at 10 and 100 customers. Identify
+which part you would outsource, automate, simplify or refuse to
+support.</p>
+<h2
+id="business-capstone-investment-memo-for-a-tiny-ai-product">Business
+capstone — Investment memo for a tiny AI product</h2>
+<p>Create an evidence-backed 6–10-page memo for one of your shortlisted
+ideas:</p>
+<ol type="1">
+<li>Problem, customer and job to be done.</li>
+<li>Current alternatives and three verified competitors.</li>
+<li>Differentiated workflow and demo storyboard.</li>
+<li>Evidence from interviews or a clearly labeled validation plan if not
+conducted.</li>
+<li>Unit economics under three usage and churn scenarios.</li>
+<li>Solo-founder operating workload and major failure risks.</li>
+<li>Acquisition funnel, first 10-customer plan and decision gates.</li>
+<li>Build/no-code/hybrid choice with rationale.</li>
+</ol>
+<p><strong>Pass criteria:</strong> No invented traction or unsupported
+market figures; all material claims sourced; buyer and user
+distinguished; testable assumptions; a credible decision to proceed,
+change or stop.</p>
+<h2 id="further-study">Further study</h2>
+<ul>
+<li>Explore current pricing and documentation from products you actually
+compare, capturing the date.</li>
+<li>Review the academy’s <a
+href="../index.html#cases">open-source case-study
+gallery</a>.</li>
+<li>Learn no-code validation through <a href="02-no-code.html">Course
+02</a>.</li>
+</ul>
+<p><strong>Suggested video production:</strong> A 12-minute
+screen-recorded case study comparing a voice handover workflow against
+paper logs, messaging apps and a dedicated field-service product. Show
+the research sources and mark speculative judgments as hypotheses. No
+such original video is included
+yet.</p></article><aside class="book-aside"><div class="eyebrow">STUDY GUIDE</div><h3>Learn your way</h3><p>Read, pause, attempt the exercise, then compare your reasoning to the lesson. Use the playground for visual traces.</p><a href="../index.html#playground">Open agent simulator →</a><a href="../index.html#progress">View progress →</a><p>Course guides are substantive references. Interactive module quizzes track browser-local completion separately.</p></aside></div></body></html>

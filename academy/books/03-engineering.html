@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Atlas Course — Agent Atlas</title><link rel="stylesheet" href="../styles.css"><style>
+body{background:var(--bg)}.book-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1060px;margin:auto;padding:22px 25px;border-bottom:1px solid var(--line)}.book-nav a{color:var(--accent);font-weight:700}.book-shell{max-width:1060px;margin:30px auto 80px;padding:0 25px;display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:36px}.book-content{font-size:1.035rem;line-height:1.78}.book-content h1{font-size:clamp(2.2rem,4vw,3.3rem);line-height:1.12}.book-content h2{font-size:1.75rem;margin-top:55px;padding-top:20px;border-top:1px solid var(--line)}.book-content h3{font-size:1.2rem;margin-top:30px;color:var(--accent2)}.book-content p,.book-content li{color:var(--text)}.book-content blockquote{margin:20px 0;padding:18px 24px;border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0}.book-content blockquote p{margin:0}.book-content pre{background:#090c16;border:1px solid var(--line);border-radius:12px;padding:18px;overflow:auto;color:#e6defd;font-size:.87rem;line-height:1.5}.book-content :not(pre)>code{background:var(--surface2);border-radius:5px;padding:2px 5px;font-size:.9em}.book-content table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:25px 0}.book-content th,.book-content td{border:1px solid var(--line);padding:10px 13px;text-align:left;min-width:110px}.book-content th{background:var(--surface2)}.book-content a{color:var(--accent);text-decoration:underline}.book-aside{align-self:start;position:sticky;top:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}.book-aside a{display:block;font-size:.85rem;color:var(--accent);margin:10px 0}.book-aside p{font-size:.82rem}@media(max-width:800px){.book-shell{display:block}.book-aside{position:static;margin-top:30px}.book-content h2{margin-top:40px}}
+</style></head><body><div class="book-nav"><a href="../index.html#paths">← Agent Atlas courses</a><span class="pill">FULL COURSE GUIDE</span><a href="../index.html#playground">Try a demo ↗</a></div><div class="book-shell"><article class="book-content"><h1
+id="course-03-ai-agent-engineering-from-scratch">Course 03 — AI Agent
+Engineering from Scratch</h1>
+<p><strong>Level:</strong> Applied Python; beginner to intermediate
+agent engineering. <strong>Study time:</strong> 60–90 hours.<br />
+<strong>Prerequisites:</strong> <a
+href="00-foundations.html">Foundation</a>, basic Python
+functions/JSON/HTTP.<br />
+<strong>Outcome:</strong> Design a framework-free agent, connect a model
+safely, add retrieval and state, evaluate it, then deploy a controlled
+service.</p>
+<h2
+id="lesson-e1-understand-the-system-before-importing-a-framework">Lesson
+E1 — Understand the system before importing a framework</h2>
+<h3 id="architecture">Architecture</h3>
+<p>The essential parts are an entry point, model client,
+instruction/context builder, tool registry, validator, state store, loop
+controller, evaluation harness and interface. The model provider is one
+replaceable component. Your agent’s <strong>authority lives in the host
+application</strong>: it decides which tools exist, what arguments are
+acceptable, and which actions need human approval.</p>
+<p>Suggested structure:</p>
+<pre class="text"><code>src/agent/
+  main.py
+  model_client.py
+  loop.py
+  prompts.py
+  tools.py
+  schemas.py
+  state.py
+  evals.py
+tests/</code></pre>
+<p>An adapter separates your logic from a provider’s SDK. Define a
+provider-neutral decision with either <code>final(text)</code> or
+<code>tool_call(name,arguments,call_id)</code>. Provider APIs differ in
+their exact message formats, tool schemas and output handling; follow
+current official docs for the chosen API rather than copying old
+snippets blindly.</p>
+<h3 id="exercise-e1">Exercise E1</h3>
+<p>Draw the request path from CLI → controller → model adapter → tool
+dispatcher → observation → final result. Mark where an API key is read,
+where a tool is authorized, and where step limits live. Explain why the
+prompt alone cannot enforce all of this.</p>
+<h2 id="lesson-e2-write-and-test-the-tool-layer">Lesson E2 — Write and
+test the tool layer</h2>
+<p>Start with the included <a
+href="../../labs/tool-dispatch/README.html">safe tool dispatch lab</a>. It
+has a calculator and tests that reject unknown tools and invalid
+arguments. Expand it cautiously: add a CSV row counter that reads only
+from a fixed demo directory. Do not create a general
+<code>run_shell(command)</code> tool. An LLM that can choose arbitrary
+shell strings has effectively gained broad machine permissions.</p>
+<p>Use typed validation such as dataclasses or Pydantic for nontrivial
+inputs. Check file extensions, resolved paths, size and row limits.
+Separate read-only tools from mutating tools, and require a trusted
+authorization check before any side effect. Tool results also need
+bounded size; returning a million rows to the model is expensive and
+unsafe.</p>
+<h3 id="example-dispatcher">Example dispatcher</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dispatch(tool_name, arguments, registry, approvals):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    spec <span class="op">=</span> registry.get(tool_name)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> spec <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Unknown tool&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> spec.schema.validate(arguments)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> spec.requires_approval <span class="kw">and</span> <span class="kw">not</span> approvals.is_granted(tool_name, data):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">PermissionError</span>(<span class="st">&quot;Approval required&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> spec.execute_with_limits(data)</span></code></pre></div>
+<p>This is architecture pseudocode. A production approval record needs
+identity, expiry, scope and audit logging. The model’s own statement
+“approved” is not proof of approval.</p>
+<h3 id="exercise-e2">Exercise E2</h3>
+<p>Write tests for invalid JSON, extra parameters, missing parameters,
+extremely large numbers, unknown tool names and a forbidden path. Make
+all errors predictable and safe to log.</p>
+<h2 id="lesson-e3-implement-the-modeltool-loop">Lesson E3 — Implement
+the model/tool loop</h2>
+<h3 id="a-bounded-controller">A bounded controller</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> agent(goal, model, registry, max_steps<span class="op">=</span><span class="dv">6</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    history <span class="op">=</span> [{<span class="st">&quot;role&quot;</span>: <span class="st">&quot;user&quot;</span>, <span class="st">&quot;content&quot;</span>: goal}]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(max_steps):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        decision <span class="op">=</span> model.next_action(history, registry.schemas())</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> decision.kind <span class="op">==</span> <span class="st">&quot;final&quot;</span>:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> decision.text</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> decision.kind <span class="op">!=</span> <span class="st">&quot;tool_call&quot;</span>:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Invalid response&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> registry.execute(decision.name, decision.arguments)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        history <span class="op">+=</span> [decision.as_message(), make_observation(decision, result)]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot;Stopped safely: step limit reached&quot;</span></span></code></pre></div>
+<p>Again, this is <strong>pseudocode</strong>, not copy-paste provider
+SDK code. Real APIs require matching tool-call IDs, output
+serialization, exception handling, token accounting, cancellation and
+possibly asynchronous execution. Every iteration should produce a trace
+including step number, tool name, validation result, duration and
+outcome. Avoid logging secrets or full private documents.</p>
+<h3 id="what-goes-wrong">What goes wrong?</h3>
+<ul>
+<li>Tool returns a 404: decide whether this is a permanent missing
+record or temporary service failure.</li>
+<li>Model proposes the same tool repeatedly: detect repetition and stop
+or ask for help.</li>
+<li>Tool executes but the response is lost: use idempotency keys for
+writes; do not blindly retry.</li>
+<li>Model produces a final answer unsupported by observations: evaluate
+grounding and include source references.</li>
+<li>Context grows every step: compact history without discarding
+critical tool results.</li>
+</ul>
+<h3 id="exercise-e3">Exercise E3</h3>
+<p>Create a fake model adapter that returns a predetermined sequence:
+tool call → tool call → final answer. Test the loop without paying for a
+model. Then replace it with a real provider adapter using your chosen
+SDK and environment variable for credentials. Set a small budget and
+avoid production data.</p>
+<h2 id="lesson-e4-memory-retrieval-and-grounding">Lesson E4 — Memory,
+retrieval and grounding</h2>
+<p><strong>Working state</strong> is what the agent needs during a run.
+<strong>Conversation memory</strong> is interaction history.
+<strong>Persistent checkpoints</strong> allow resumed execution after
+interruptions. <strong>Long-term memory</strong> stores selected durable
+facts. <strong>RAG</strong> retrieves relevant external information at
+answer time. These mechanisms serve different purposes; do not label a
+large prompt “memory” and assume it persists.</p>
+<p>Start with keyword retrieval over ten markdown runbooks. For each
+question, retrieve a small ranked set of excerpts and retain source
+identifiers. Only then consider embeddings or vector search, which may
+help semantically similar phrasing but introduce their own costs and
+evaluation needs.</p>
+<h3 id="retrieval-quality-checks">Retrieval quality checks</h3>
+<p>Test queries with exact matches, synonyms, irrelevant material,
+contradictory documents and unanswerable questions. Measure recall of
+important passages and whether the final answer cites supporting
+evidence. A model can still hallucinate even with correct retrieval, so
+assess retrieval and generation separately.</p>
+<h3 id="exercise-e4">Exercise E4</h3>
+<p>Build a mini knowledge agent over ten synthetic incident notes. It
+must answer five known questions with document IDs and say “insufficient
+evidence” for three unknown questions. Add a malicious note instructing
+the system to expose secrets and verify the instruction is ignored.</p>
+<h2 id="lesson-e5-evals-security-services-and-deployment">Lesson E5 —
+Evals, security, services and deployment</h2>
+<h3 id="measure-before-scaling">Measure before scaling</h3>
+<p>An evaluation set is a collection of representative tasks, expected
+outcomes and safety constraints. Build at least 30 cases. Track task
+success, unsupported statements, tool failures, unauthorized-action
+attempts, latency, cost and human correction. Compare changes to the
+same baseline rather than judging by one impressive demonstration.</p>
+<p><strong>Security boundaries:</strong> API credentials in a secret
+store or environment; no secrets in source control. Restrict database
+identities to needed permissions. Validate every tool argument. Limit
+data returned to the model. Log actions and approvals. Add timeouts,
+retries with backoff, idempotency for writes and protection against
+prompt injection through retrieved content.</p>
+<h3 id="http-service">HTTP service</h3>
+<p>FastAPI can expose a <code>POST /tasks</code> endpoint that creates a
+task ID and queues a run. Long-running requests should generally use a
+worker/queue rather than holding the HTTP connection open indefinitely.
+Expose status and result endpoints, authenticate callers, and isolate
+customer data. Containerization via Docker improves reproducibility but
+does not itself enforce secure execution.</p>
+<h3 id="exercise-e5">Exercise E5</h3>
+<p>Write a threat model for your ETL assistant: assets, attackers,
+inputs, permissions, misuse cases, mitigations and residual risk. Add
+tests for tool timeout, 429 rate limit, missing API key, invalid output
+and process restart. Explain which failures users must see and which
+require an operator alert.</p>
+<h2
+id="engineering-capstone-read-only-data-operations-assistant">Engineering
+capstone — Read-only data operations assistant</h2>
+<p>Use synthetic job statuses, runbook documents and dependency metadata
+to build a command-line or FastAPI service that can:</p>
+<ol type="1">
+<li>Accept a job or incident identifier.</li>
+<li>Query only permitted read-only tools.</li>
+<li>Retrieve relevant runbook passages.</li>
+<li>Explain likely causes with evidence and uncertainty.</li>
+<li>Draft an action plan without executing production changes.</li>
+<li>Produce traces and a 30-case evaluation report.</li>
+</ol>
+<p><strong>Pass criteria:</strong> Reproducible setup, isolated secrets,
+bounded loop, validated tool arguments, readable error messages,
+citations, test coverage for failure modes and an explicit approval
+boundary for any future mutating tools.</p>
+<h2 id="further-study">Further study</h2>
+<ul>
+<li><a href="https://docs.python.org/3/tutorial/">Official Python
+tutorial</a></li>
+<li><a href="https://platform.openai.com/docs">OpenAI API
+documentation</a> or another chosen provider’s current official
+docs.</li>
+<li><a href="https://docs.langchain.com/oss/python/learn">LangGraph
+learning materials</a> after the framework-free loop.</li>
+<li><a href="https://fastapi.tiangolo.com/tutorial/">FastAPI
+tutorial</a> and <a href="https://docs.docker.com/get-started/">Docker
+getting started</a>.</li>
+</ul>
+<p><strong>Video lab suggestion:</strong> Record a screen walkthrough
+that starts with a deterministic mock model and ends with a bounded tool
+trace. Explain every failure test. A provider-specific live coding
+recording should use current SDK signatures, not this conceptual
+pseudocode.</p></article><aside class="book-aside"><div class="eyebrow">STUDY GUIDE</div><h3>Learn your way</h3><p>Read, pause, attempt the exercise, then compare your reasoning to the lesson. Use the playground for visual traces.</p><a href="../index.html#playground">Open agent simulator →</a><a href="../index.html#progress">View progress →</a><p>Course guides are substantive references. Interactive module quizzes track browser-local completion separately.</p></aside></div></body></html>
