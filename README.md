@@ -8,7 +8,7 @@ A self-paced, browser-first academy for understanding the AI agent ecosystem, ev
 
 This repository is readable directly in GitHub without downloading a ZIP. GitHub displays Markdown lessons and exercises natively. Interactive HTML pages need a browser or GitHub Pages hosting; GitHub's source-file view does not run JavaScript. No server, API key, paid model or backend is required for the self-contained simulations.
 
-**Publishing status:** GitHub Pages entry files (`index.html` and `.nojekyll`) are committed. **Pages still needs to be enabled in repository settings** before a public website URL is live. One fully rebuilt lesson (`f-agent`) is complete. The remaining course guides and 12 short checkpoints are **first-edition scaffolds**, not yet lessons of equivalent educational depth. Their study-hour totals are targets for the full curriculum, not hours of currently complete material.
+**Publishing status:** GitHub Pages is available at [Agent Atlas](https://patrickwork8522.github.io/ai-agent-engineering-academy/). Two full interactive chapters are now included: `f-model` (90–120 minutes) and `f-agent` (90–115 minutes). The remaining course guides and 11 shorter checkpoints are **first-edition scaffolds**, not yet lessons of equivalent educational depth. Their study-hour totals are targets for the full curriculum, not hours of currently complete material.
 
 ## What's inside?
 
@@ -23,7 +23,7 @@ This repository is readable directly in GitHub without downloading a ZIP. GitHub
 | Videos | Original narration scripts and storyboards | 📝 Production-ready drafts, **not MP4s** |
 | Python labs | Framework-free tools and safe exercises | ✅ Starter lab |
 | Course textbooks | Six Markdown/HTML track guides | 🟡 Reference foundation; content needs deeper lesson-by-lesson development |
-| Deep lessons | Full teaching, design labs, solutions, assessment, field trip, storyboard | ✅ `f-agent` complete; remaining modules queued |
+| Deep lessons | Full teaching, visual labs, worked solutions, assessments, reference links | ✅ `f-model` and `f-agent` complete; remaining modules queued |
 
 The site clearly distinguishes **simulations** from actual AI model executions. Market examples are learning prompts, not verified current market-size estimates.
 
@@ -43,9 +43,9 @@ Estimated course durations include future deeper exercises and references; the c
 ## Suggested first 30 minutes
 
 1. Open the live academy and choose **Learning paths → AI Foundations → Open course**.
-2. Start a lesson, read its teaching and examples, then choose **Next: practice & revision**.
-3. Complete the revision exercise and choose **Complete revision & next** to proceed in sequence.
-4. For `f-agent`, study the full [interactive lesson](academy/lessons/f-agent.html) and pass its ten-question assessment before continuing.
+2. Start [Lesson 1 — What is an LLM?](academy/lessons/f-model.html) directly inside its full interactive chapter; read and work through the visual labs.
+3. Pass its ten-question assessment, review at least two practical exercises, and choose **Complete Lesson 1 and unlock Next**.
+4. Continue with [Lesson 2 — Agent vs chatbot vs workflow](academy/lessons/f-agent.html), another full chapter with a ten-question assessment.
 5. Visit **My progress** for shared completion and course trophies. Reading guides remain available in every course.
 
 ## Repo map
@@ -58,7 +58,7 @@ academy/
   app.js           Routing, simulation, quizzes and local progress
   course-flow.css  Sequential course and revision layouts
   books/           Browser-readable course textbooks
-  lessons/         Deep interactive lessons, beginning with f-agent.html
+  lessons/         Deep interactive chapters, including f-model.html and f-agent.html
 courses/           Six canonical course guides in Markdown
 lessons/           Deep Markdown lessons with worked solutions and source links
 docs/
