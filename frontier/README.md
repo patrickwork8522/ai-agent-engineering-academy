@@ -4,7 +4,7 @@
 
 Build transferable expertise by investigating important, current problems before receiving direct instruction. This project is **not** a collection of short teaser pages or lightly modified external courses. Its framework is reusable across AI, AI agents, data engineering, cybersecurity, business, science and other fields.
 
-The first complete interactive case lives at [Case 001](../academy/frontier/index.html). The public GitHub Pages home is [Agent Atlas](https://patrickwork8522.github.io/ai-agent-engineering-academy/academy/).
+The case-room landing page and first case live at [Case 001](../academy/frontier/index.html). Cases 002–005 are rendered through the shared [case runner](../academy/frontier/case.html) and [case data](../academy/frontier/case-data.js). The public GitHub Pages home is [Agent Atlas](https://patrickwork8522.github.io/ai-agent-engineering-academy/academy/).
 
 ## Teaching contract for each case
 
@@ -23,10 +23,11 @@ The first complete interactive case lives at [Case 001](../academy/frontier/inde
 
 - `frontier/cases.json`: extensible case catalog and editorial metadata. This file can be consumed by a future automated catalog UI.
 - `academy/frontier/index.html`: first no-build static interactive case for GitHub Pages, including lesson and simulation logic.
+- `academy/frontier/case.html`, `case-engine.js`, `case-data.js`: shared no-build case runner and authored content for Cases 002–005; each has evidence, five structured explanations, three exercises, ten questions and a curated source navigator.
 - `academy/lessons/`: existing detailed canonical concepts; a case should link to these as needed.
 - `agent-atlas-frontier-v1`: browser-local case-completion store. It is **separate** from the existing `agent-atlas-progress-v1` six-track progress; no cross-device syncing or verified certification is implied.
 
-When the catalog grows, split each case into `academy/frontier/<slug>/index.html`, move common UI and assessment code into shared assets, and load per-case metadata/content from the case catalog. Keep clean case URLs stable. Consider automated test fixtures for simulations and review of links on a recurring schedule. Do not auto-publish research summaries without human editorial review.
+As the catalog grows, move Case 001 into the shared renderer without breaking its current public URL, then generate navigation from `cases.json` instead of maintaining two representations. Keep clean case URLs stable. Add automated tests for every scenario's calculations and answers, plus a link checker. Do not auto-publish research summaries without human editorial review.
 
 ## Case editorial workflow
 
@@ -47,5 +48,5 @@ References: [Kapur, Productive Failure in Learning Math](https://pubmed.ncbi.nlm
 
 ## Not yet implemented
 
-Full dynamic case catalog, account-based syncing, live conversational tutoring, server-graded written deliverables, automated frontier-source ingestion, narrated video and fully-fledged cross-topic case runners. A static GitHub Pages site cannot securely host a private model API key; future tutoring requires an appropriately authenticated backend and privacy policy. Planned cases in the catalog are editorial proposals, not completed teaching modules.
+Data-driven catalog navigation, account-based syncing, live conversational tutoring, server-graded written deliverables, automated frontier-source ingestion, narrated video and automated real-tool execution. Case 001 still uses its original page logic; cases 002–005 share the new runner. A static GitHub Pages site cannot securely host a private model API key; future tutoring requires an appropriately authenticated backend and privacy policy. Cases 006–007 remain planned rather than presented as completed lessons.
 
